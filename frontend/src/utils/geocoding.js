@@ -76,7 +76,7 @@ export function sanitizeStopName(rawName) {
 /**
  * Multi-Tier Geocoder Engine
  */
-export async function geocodeStop(rawStopName) {
+export async function geocodeStop(rawStopName, isIndian = false) {
   if (!rawStopName) return null;
 
   const cleanName = sanitizeStopName(rawStopName);
@@ -99,7 +99,11 @@ export async function geocodeStop(rawStopName) {
   // Tier 2: Dynamic Search via OpenStreetMap Nominatim
   try {
     // Fixed URL interpolation from markdown artifact and added email to satisfy OSM strict policy
-    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(cleanName)}&limit=1&email=hello@anavandi.app`;
+    let queryParams = `format=json&q=${encodeURIComponent(cleanName)}&limit=1&email=hello@anavandi.app`;
+    if (isIndian) {
+      queryParams += '&countrycodes=in';
+    }
+    const url = `https://nominatim.openstreetmap.org/search?${queryParams}`;
     
     // We omit the User-Agent header in fetch to prevent CORS Preflight failure in browsers
     const res = await fetch(url);
@@ -120,14 +124,14 @@ export async function geocodeStop(rawStopName) {
 /**
  * Sequential Geocoder with Linear Path Interpolation
  */
-export async function resolveFullRouteGeometry(stopNames) {
+export async function resolveFullRouteGeometry(stopNames, isIndian = false) {
   if (!stopNames || stopNames.length === 0) return [];
 
   const rawResults = [];
 
   // 1. Process stops sequentially with 1000ms buffer to respect OSM API limits (changed from 150ms to 1000ms)
   for (const name of stopNames) {
-    const res = await geocodeStop(name);
+    const res = await geocodeStop(name, isIndian);
     rawResults.push(res);
     await new Promise(r => setTimeout(r, 1000));
   }

@@ -396,11 +396,11 @@ def extract_with_ai(image_path: str) -> dict:
                             _call_groq_vision_model, api_key, model_name, image_bytes, mime_type, prompt_text
                         )
                         try:
-                            parsed = future.result(timeout=60)
+                            parsed = future.result(timeout=300)
                         except concurrent.futures.TimeoutError:
                             print(f"[OCR] Model {model_name} timed out — trying next")
                             future.cancel()
-                            last_error = TimeoutError(f"{model_name} timed out after 60s")
+                            last_error = TimeoutError(f"{model_name} timed out after 300s")
                             continue
 
                     if parsed and isinstance(parsed, dict) and "grid" in parsed:
@@ -432,13 +432,13 @@ def extract_with_ai(image_path: str) -> dict:
                         _call_gemini_model, model_name, img, UNIVERSAL_SYSTEM_PROMPT + "\n\n" + prompt_text
                     )
                     try:
-                        parsed = future.result(timeout=120)
+                        parsed = future.result(timeout=300)
                         executor.shutdown(wait=False)
                     except concurrent.futures.TimeoutError:
                         print(f"[OCR] Model {model_name} timed out — trying next")
                         future.cancel()
                         executor.shutdown(wait=False)
-                        last_error = TimeoutError(f"{model_name} timed out after 120s")
+                        last_error = TimeoutError(f"{model_name} timed out after 300s")
                         continue
 
                     if parsed and isinstance(parsed, dict) and "grid" in parsed:

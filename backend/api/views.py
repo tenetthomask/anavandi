@@ -9,7 +9,7 @@ from ocr_engine import extract_timetable_data, get_api_key, generate_fallback_ti
 
 logger = logging.getLogger(__name__)
 
-VIEW_TIMEOUT_SECONDS = 75  # Hard cap: respond to browser within 75 s
+VIEW_TIMEOUT_SECONDS = 300  # Increased from 75s to allow for laptop sleep/pauses
 
 
 @csrf_exempt

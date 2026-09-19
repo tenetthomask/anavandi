@@ -66,7 +66,7 @@ export default function App() {
       }
       const dataRows = matrixGrid.slice(1);
       const stopNames = dataRows.map(row => row[locColIdx] || row[0]).filter(Boolean);
-      const updatedGeometry = await resolveFullRouteGeometry(stopNames);
+      const updatedGeometry = await resolveFullRouteGeometry(stopNames, isIndiaMode);
       setMapStops(updatedGeometry);
       setIsGeocoding(false);
     }
@@ -191,7 +191,7 @@ export default function App() {
     formData.append('file', file);
 
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 240000);
+    const timeoutId = setTimeout(() => controller.abort(), 360000);
 
     try {
       const response = await fetch('/api/extract?nocache=' + Date.now(), {
@@ -224,7 +224,7 @@ export default function App() {
     } catch (err) {
       console.error('Vision AI pipeline error:', err);
       if (err.name === 'AbortError') {
-        setExtractionError('Extraction timed out after 240 seconds. Try a smaller or clearer image.');
+        setExtractionError('Extraction timed out after 360 seconds. Try a smaller or clearer image.');
       } else {
         setExtractionError(err.message || 'Unknown error. Check the browser console for details.');
       }
