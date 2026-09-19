@@ -1,0 +1,15 @@
+# Netlify Routing Configuration
+
+# Proxy /api requests to production Django backend (removes CORS issues in production)
+# IMPORTANT: This specific API rule must come BEFORE the catch-all SPA redirect below!
+[[redirects]]
+  from = "/api/*"
+  to = "https://olive-paws-thank.loca.lt/api/:splat"
+  status = 200
+  force = true
+
+# Redirect all frontend routes to index.html for Single Page Application (SPA) routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

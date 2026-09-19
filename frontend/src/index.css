@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Minimalist SaaS Color Tokens (Flowstep Inspired) */
+  --hero-bg: #030304;
+  --hero-navy-wash: radial-gradient(circle at 50% 0%, #0F172A 0%, #030304 70%);
+  --workspace-bg: #F8FAFC;
+
+  --card-bg: #FFFFFF;
+  --card-border: #E2E8F0;
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 10px 25px -5px rgba(0, 0, 0, 0.03);
+
+  --blue-primary: #2563EB;
+  --blue-hover: #1D4ED8;
+
+  --charcoal-dark: #0F172A;
+  --slate-body: #475569;
+  --slate-muted: #94A3B8;
+
+  --gray-pill-bg: #F1F5F9;
+  --gray-pill-text: #0F172A;
+
+  --status-green: #16A34A;
+
+  --font-heading: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Force global smooth scrolling behavior */
+html {
+  scroll-behavior: smooth !important;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Ensure no wrapper interrupts window scroll offset */
+body, #root, main {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: visible !important;
+}
+
+body {
+  background-color: var(--workspace-bg);
+  color: var(--charcoal-dark);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* SaaS Bento Card */
+.saas-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.saas-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Neutral Connector Tracer Line */
+.connector-line {
+  width: 1px;
+  height: 60px;
+  background-color: #E2E8F0;
+}
+
+/* Leaflet Map Custom Styling */
+.leaflet-popup-content-wrapper {
+  background: #0F172A !important;
+  color: #FFFFFF !important;
+  border-radius: 8px !important;
+  font-family: var(--font-body) !important;
+  font-size: 0.75rem !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+}
+
+.leaflet-popup-tip {
+  background: #0F172A !important;
+}
+
+/* ======================== */
+/* KEYFRAME ANIMATIONS      */
+/* ======================== */
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes scroll-pulse {
+  0%   { transform: translateY(0);   opacity: 1; }
+  50%  { transform: translateY(8px); opacity: 0.4; }
+  100% { transform: translateY(0);   opacity: 1; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.9); }
+}
+
+/* Ensure Leaflet map tiles always render correctly */
+.leaflet-container {
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 1;
+}
+
+/* Fix Leaflet z-index conflicts with modal overlays */
+.leaflet-pane,
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-tile-container,
+.leaflet-map-pane svg,
+.leaflet-map-pane canvas,
+.leaflet-zoom-box,
+.leaflet-image-layer,
+.leaflet-layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* ======================== */
+/* RESPONSIVE UTILITIES     */
+/* ======================== */
+
+/* Default Desktop/Tablet Padding */
+.responsive-section-padding {
+  padding: 6rem 4rem 3rem;
+}
+
+/* Mobile overrides */
+@media (max-width: 768px) {
+  /* Stack 2-column layouts to 1-column */
+  .responsive-grid-hero,
+  .responsive-grid-studio {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Reduce padding on mobile */
+  .responsive-section-padding {
+    padding: 6rem 1.5rem 3rem !important;
+  }
+  
+  /* Hide elements specifically on mobile */
+  .hide-on-mobile {
+    display: none !important;
+  }
+}
