@@ -1,6 +1,6 @@
 django
 django-cors-headers
-google-genai
+google-generativeai
 pillow
 pandas
 easyocr
