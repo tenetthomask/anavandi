@@ -29,6 +29,8 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
 });
 
+const API_BASE = import.meta.env.DEV ? '/api' : 'https://anavandi.onrender.com/api';
+
 // App Component
 
 export default function App() {
@@ -194,7 +196,7 @@ export default function App() {
     const timeoutId = setTimeout(() => controller.abort(), 360000);
 
     try {
-      const response = await fetch('/api/extract?nocache=' + Date.now(), {
+      const response = await fetch(`${API_BASE}/extract?nocache=` + Date.now(), {
         method: 'POST',
         headers: {
           'Bypass-Tunnel-Reminder': 'true'
@@ -250,7 +252,7 @@ export default function App() {
     setSelectedRowIndex(0);
 
     try {
-      const response = await fetch('/api/extract-demo', { 
+      const response = await fetch(`${API_BASE}/extract-demo`, { 
         method: 'POST',
         headers: { 'Bypass-Tunnel-Reminder': 'true' }
       });
