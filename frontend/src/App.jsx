@@ -29,7 +29,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
 });
 
-const API_BASE = import.meta.env.DEV ? '/api' : 'https://anavandi.onrender.com/api';
+const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? '/api' : 'https://anavandi.onrender.com/api';
 
 // App Component
 
