@@ -22,6 +22,10 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'backend_project.urls'
 
 CORS_ALLOW_ALL_ORIGINS = True
+from corsheaders.defaults import default_headers
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    "bypass-tunnel-reminder",
+]
 
 TEMPLATES = []
 WSGI_APPLICATION = 'backend_project.wsgi.application'

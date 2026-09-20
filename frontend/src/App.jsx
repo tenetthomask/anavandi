@@ -198,9 +198,6 @@ export default function App() {
     try {
       const response = await fetch(`${API_BASE}/extract?nocache=` + Date.now(), {
         method: 'POST',
-        headers: {
-          'Bypass-Tunnel-Reminder': 'true'
-        },
         body: formData,
         signal: controller.signal
       });
@@ -253,8 +250,7 @@ export default function App() {
 
     try {
       const response = await fetch(`${API_BASE}/extract-demo`, { 
-        method: 'POST',
-        headers: { 'Bypass-Tunnel-Reminder': 'true' }
+        method: 'POST'
       });
       const resData = await response.json();
       if (resData?.data) {
